@@ -81,5 +81,5 @@ def test_swipe_up_contacts():
 video_rawdata = driver.stop_recording_screen()
 video_name = driver.current_activity + time.strftime("%Y_%m_%d_H%M%S")
 filepath = os.path.join("/Users/dennis/PycharmProjects/AppiumTest/Screenshots/", video_name+".mp4")
-with open(filepath, "wb+") as vd:
+with open(filepath, "wb") as vd:
     vd.write(base64.b64decode(video_rawdata))
