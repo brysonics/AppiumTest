@@ -20,7 +20,8 @@ desired_capability = {
 driver = webdriver.Remote("http://localhost:4723/wd/hub", desired_capability)
 touch = TouchAction(driver)
 
-driver.start_recording_screen()
+
+# driver.start_recording_screen()
 
 
 # click on recents contacts
@@ -62,12 +63,12 @@ def test_click_back():
 def test_click_contact():
     driver.find_element(AppiumBy.XPATH,
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.widget.FrameLayout/android.widget.ImageView').click()
-    time.sleep(2)
+    time.sleep(5)
 
 
 def test_down_contacts():
     TouchAction(driver).press(x=465, y=670).move_to(x=459, y=568).release().perform()
-    time.sleep(2)
+    time.sleep(4)
     # if user wants to scroll down 5 times
     # for i in range(5):
     # TouchAction(driver).press(x=495, y=1683).move_to(x=474, y=711).release().perform()
@@ -75,11 +76,25 @@ def test_down_contacts():
 
 def test_swipe_up_contacts():
     TouchAction(driver).press(x=474, y=477).move_to(x=474, y=588).release().perform()
+    time.sleep(3)
 
+
+def test_verify_today_text():
+    today = driver.find_element(AppiumBy.XPATH,
+                                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.view.ViewGroup[2]/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.TextView').get_attribute(
+        "text")
+    print(today)
+
+
+def test_verify_older_text():
+    older = driver.find_element(AppiumBy.ID,
+                                '40c0a5f1-2a37-4868-91ed-7fc839765762').get_attribute(
+        "text")
+    print(older)
 
 # saving video recording
-video_rawdata = driver.stop_recording_screen()
-video_name = driver.current_activity + time.strftime("%Y_%m_%d_H%M%S")
-filepath = os.path.join("/Users/dennis/PycharmProjects/AppiumTest/Screenshots/", video_name+".mp4")
-with open(filepath, "wb") as vd:
-    vd.write(base64.b64decode(video_rawdata))
+# video_rawdata = driver.stop_recording_screen()
+# video_name = driver.current_activity + time.strftime("%Y_%m_%d_H%M%S")
+# filepath = os.path.join("/Users/dennis/PycharmProjects/AppiumTest/Screenshots/", video_name+".mp4")
+# with open(filepath, "wb") as vd:
+# vd.write(base64.b64decode(video_rawdata))
